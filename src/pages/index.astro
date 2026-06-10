@@ -1,12 +1,25 @@
 ---
 import Layout from '../components/Layout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
 import { person, bio, education } from '../data/site';
 import { projects } from '../data/projects';
 
-const featuredProjects = projects.filter(p =>
-  ['AI-chart', 'Pinventory', 'Vibe Portfolio'].includes(p.title)
-);
+const featuredProjectTitles = [
+  'AI-chart',
+  'Pinventory',
+  'Vibe Portfolio',
+  'Customer Shopping Behavior Analysis'
+];
+
+const featuredProjects = featuredProjectTitles
+  .map(title => projects.find(p => p.title === title))
+  .filter((p): p is typeof projects[0] => !!p);
+
+const projectIcons: Record<string, string> = {
+  'AI-chart': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z" /></svg>`,
+  'Pinventory': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><rect x="5" y="3" width="4" height="18" rx="1" /><path d="M11 3h5a5 5 0 0 1 0 10h-5V3z" /></svg>`,
+  'Vibe Portfolio': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 18c4.41 0 8-3.59 8-8s-3.59-8-8-8-8 3.59-8 8 3.59 8 8 8zm0-14a6 6 0 0 0-6 6h2a4 4 0 0 1 4-4V6zm0 12a6 6 0 0 0 6-6h-2a4 4 0 0 1-4 4v2z" /></svg>`,
+  'Customer Shopping Behavior Analysis': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9h5v-3h-5a6 6 0 0 1-6-6 6 6 0 0 1 6-6h5V3h-5z" /></svg>`
+};
 ---
 
 <Layout title={person.fullName} description={person.metaDescription}>
@@ -61,29 +74,86 @@ const featuredProjects = projects.filter(p =>
   <!-- 4. Recent Projects -->
   <section class="border-t border-borderline/20 section-padding">
     <div class="container-content">
-      <div class="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between fade-up">
-        <h2 class="headline text-5xl md:text-7xl text-foreground">Projects</h2>
+      <div class="mb-16 flex items-center justify-between gap-6 fade-up">
+        <h2 class="headline text-5xl md:text-7xl text-accent uppercase shrink-0">Projects</h2>
+        <div class="h-[1px] bg-borderline/20 flex-grow relative">
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-[6px] bg-accent"></div>
+        </div>
+      </div>
+      <div class="grid gap-8 md:grid-cols-2">
+        {
+          featuredProjects.map((project, index) => (
+            <div
+              class="project-card group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d0d] aspect-[16/11] fade-up"
+              style={`transition-delay: ${index * 100}ms`}
+            >
+              {/* Entire background link to project repo */}
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="absolute inset-0 z-0 outline-none"
+                aria-label={`View ${project.title} on GitHub`}
+              >
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    class="absolute inset-0 w-full h-full object-cover grayscale brightness-[0.2] contrast-[1.2] transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-[0.25] group-hover:grayscale-[50%]"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="absolute inset-0 w-full h-full bg-[#0d0d0d] transition-all duration-700 ease-out group-hover:scale-105" />
+                )}
+
+                {/* Centered Icon (Default State) */}
+                <div class="project-icon absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out group-hover:scale-90 group-hover:opacity-0">
+                  <Fragment set:html={projectIcons[project.title]} />
+                </div>
+              </a>
+
+              {/* Hover Overlay (Fades In) */}
+              <div class="absolute inset-0 bg-black/85 backdrop-blur-[6px] opacity-0 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-500 ease-out group-hover:opacity-100 flex flex-col justify-end p-8 z-10">
+                <div class="transform translate-y-4 transition-transform duration-500 ease-out group-hover:translate-y-0 flex flex-col gap-3">
+                  <span class="font-display text-xs font-bold uppercase tracking-widest text-accent">
+                    {project.mainTech || project.tags[0]}
+                  </span>
+                  <h3 class="headline text-2xl md:text-3xl text-foreground leading-tight">
+                    {project.title}
+                  </h3>
+                  <p class="font-body text-sm text-muted leading-relaxed max-w-[90%]">
+                    {project.description}
+                  </p>
+                  <div class="mt-2 flex items-center gap-6">
+                    <a
+                      href={project.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-display text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2 hover:text-foreground transition-colors duration-300 z-20"
+                    >
+                      View Project <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </a>
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="font-display text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2 hover:text-foreground transition-colors duration-300 z-20"
+                      >
+                        Live Demo <span class="transition-transform duration-300 group-hover:translate-x-1">↗</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-16 flex justify-center fade-up">
         <a href="/projects" class="font-display text-sm font-bold uppercase tracking-widest text-accent hover:text-foreground transition-colors duration-300">
           All projects ↗
         </a>
-      </div>
-      <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-        {
-          featuredProjects.map((project, index) => (
-            <ProjectCard
-              title={project.title}
-              description={project.description}
-              tags={project.tags}
-              href={project.href}
-              live={project.live}
-              image={project.image}
-              mainTech={project.mainTech}
-              variant="full"
-              external
-              delay={index % 3}
-            />
-          ))
-        }
       </div>
     </div>
   </section>
@@ -114,7 +184,12 @@ const featuredProjects = projects.filter(p =>
           ))
         }
       </div>
-    </div>
   </section>
 
+  <style>
+    .project-card:hover .project-icon {
+      opacity: 0 !important;
+      transform: scale(0.9) !important;
+    }
+  </style>
 </Layout>
