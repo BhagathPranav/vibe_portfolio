@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+  issuer: string;
+  date: string;
+  file: string;
+  category: string;
+  delay?: number;
+}
+
+const { title, issuer, date, file, category, delay = 0 } = Astro.props;
+
+const categoryIcons: Record<string, string> = {
+  'Cloud & GenAI': `<svg viewBox="0 0 24 24" class="w-[42px] h-[42px] text-accent fill-current opacity-90 transition-transform duration-300 group-hover:scale-110"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg>`,
+  'Data Analytics': `<svg viewBox="0 0 24 24" class="w-[42px] h-[42px] text-accent fill-current opacity-90 transition-transform duration-300 group-hover:scale-110"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>`,
+  'Development': `<svg viewBox="0 0 24 24" class="w-[42px] h-[42px] text-accent fill-current opacity-90 transition-transform duration-300 group-hover:scale-110"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>`,
+  'Internship & Patent': `<svg viewBox="0 0 24 24" class="w-[42px] h-[42px] text-accent fill-current opacity-90 transition-transform duration-300 group-hover:scale-110"><path d="M12 2C10.07 2 8.5 3.57 8.5 5.5c0 1.34.76 2.5 1.88 3.09L9 19.5l3-1.5 3 1.5-1.38-10.91c1.12-.59 1.78-1.75 1.88-3.09C15.5 3.57 13.93 2 12 2zm0 5.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>`
+};
+---
+
+<article class="group flex flex-col h-full border border-borderline/20 bg-transparent p-6 md:p-8 aspect-[16/11] hover:border-accent/40 fade-up transition-all duration-300" style={`transition-delay: ${delay * 50}ms`}>
+  <div class="flex flex-col h-full justify-between">
+    <div class="mb-6">
+      <span class="font-display text-xs font-bold uppercase tracking-widest text-accent mb-2 block">{category}</span>
+      <h3 class="headline text-3xl lg:text-4xl text-foreground transition-colors duration-300 group-hover:text-accent mb-3">
+        {title}
+      </h3>
+    </div>
+    <div class="mt-auto">
+      <div class="mb-4">
+        <Fragment set:html={categoryIcons[category]} />
+      </div>
+      <div class="border-t border-borderline/20 pt-6">
+        <div class="space-y-1 mb-4">
+          <p class="font-body text-base text-muted leading-relaxed">
+            Issuer: <span class="text-foreground">{issuer}</span>
+          </p>
+          <p class="font-body text-sm text-muted">
+            Date: <span class="text-foreground">{date}</span>
+          </p>
+        </div>
+        <a href={file} target="_blank" rel="noopener noreferrer" class="font-display text-sm font-bold tracking-display text-accent flex items-center gap-2 transition-colors duration-300 hover:text-foreground">
+          View Certificate <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

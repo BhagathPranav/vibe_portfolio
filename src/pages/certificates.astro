@@ -1,0 +1,155 @@
+---
+import Layout from '../components/Layout.astro';
+import CertificateCard from '../components/CertificateCard.astro';
+import { person } from '../data/site';
+import { certificates } from '../data/certificates';
+
+// Helper to map category name to data-category attributes
+const getCategoryKey = (cat: string | string[]) => {
+  const cats = Array.isArray(cat) ? cat : [cat];
+  return cats.map(c => {
+    if (c === 'Cloud & GenAI') return 'cloud';
+    if (c === 'Data Analytics') return 'data';
+    if (c === 'Development') return 'dev';
+    if (c === 'Internship & Patent') return 'patent';
+    return 'other';
+  }).join(' ');
+};
+---
+
+<Layout
+  title={`Certificates — ${person.fullName}`}
+  description={`Professional certifications and training credentials earned by ${person.fullName} in AWS Cloud, Generative AI, Data Analytics, Python, and Full Stack Web Development.`}
+>
+  <section class="section-padding">
+    <div class="container-content">
+      <!-- Title Header -->
+      <div class="mb-16 flex items-center justify-between gap-6 fade-up">
+        <h1 class="headline text-5xl md:text-7xl text-accent uppercase shrink-0">Certificates</h1>
+        <div class="h-[1px] bg-borderline/20 flex-grow relative">
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-[6px] bg-accent"></div>
+        </div>
+      </div>
+      
+      <p class="max-w-2xl font-body text-xl text-muted leading-relaxed mb-16 fade-up">
+        A curated list of my completed certifications, professional simulations, and academic credentials across Cloud, Generative AI, Data Science, and Software Development.
+      </p>
+
+      <!-- Category Filter Buttons -->
+      <div class="flex flex-wrap gap-4 mb-12 fade-up">
+        <button
+          id="filter-all"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-accent text-background bg-accent scale-[1.05] hover:scale-[1.05] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
+        >
+          All Certificates
+        </button>
+        <button
+          id="filter-patent"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent hover:bg-accent/5 hover:scale-[1.02] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
+        >
+          Internship & Patent
+        </button>
+        <button
+          id="filter-data"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent hover:bg-accent/5 hover:scale-[1.02] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
+        >
+          Data Analytics
+        </button>
+        <button
+          id="filter-cloud"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent hover:bg-accent/5 hover:scale-[1.02] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
+        >
+          Cloud & GenAI
+        </button>
+        <button
+          id="filter-dev"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent hover:bg-accent/5 hover:scale-[1.02] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
+        >
+          Development
+        </button>
+      </div>
+
+      <!-- Certificates Grid -->
+      <div class="grid gap-8 md:grid-cols-2">
+        {
+          certificates.map((cert, index) => (
+            <div
+              class="certificate-card fade-up"
+              data-category={getCategoryKey(cert.category)}
+              data-title={cert.title}
+            >
+              <CertificateCard
+                title={cert.title}
+                issuer={cert.issuer}
+                date={cert.date}
+                file={cert.file}
+                category={Array.isArray(cert.category) ? cert.category[0] : cert.category}
+                delay={index % 6}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = {
+        all: document.getElementById('filter-all'),
+        patent: document.getElementById('filter-patent'),
+        cloud: document.getElementById('filter-cloud'),
+        data: document.getElementById('filter-data'),
+        dev: document.getElementById('filter-dev')
+      };
+      
+      const cards = document.querySelectorAll('.certificate-card');
+      
+      const activeClasses = ['border-accent', 'text-background', 'bg-accent', 'scale-[1.05]', 'hover:scale-[1.05]'];
+      const inactiveClasses = ['border-white/10', 'text-muted', 'bg-[#161616]/40', 'hover:border-accent/50', 'hover:text-accent', 'hover:bg-accent/5', 'hover:scale-[1.02]'];
+      
+      function setActiveButton(activeKey) {
+        Object.entries(buttons).forEach(([key, btn]) => {
+          if (!btn) return;
+          if (key === activeKey) {
+            btn.classList.remove(...inactiveClasses);
+            btn.classList.add(...activeClasses);
+          } else {
+            btn.classList.remove(...activeClasses);
+            btn.classList.add(...inactiveClasses);
+          }
+        });
+      }
+      
+      Object.entries(buttons).forEach(([key, btn]) => {
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          setActiveButton(key);
+          
+          cards.forEach(card => {
+            const cardCatAttr = card.getAttribute('data-category') || '';
+            const cardCats = cardCatAttr.split(' ');
+            const cardTitle = card.getAttribute('data-title') || '';
+            
+            // Reorder grid elements dynamically: Patent first when filtering Internship & Patent
+            if (key === 'patent' && cardTitle === 'Intellectual Property India Patent Publication') {
+              card.style.order = '-1';
+            } else {
+              card.style.order = '0';
+            }
+
+            if (key === 'all' || cardCats.includes(key)) {
+              card.classList.remove('hidden');
+              card.classList.remove('is-visible');
+              setTimeout(() => {
+                card.classList.add('is-visible');
+              }, 50);
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        });
+      });
+    });
+  </script>
+</Layout>

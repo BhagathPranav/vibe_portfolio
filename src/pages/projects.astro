@@ -45,13 +45,13 @@ const isDataAnalysis = (project: typeof projects[0]) => {
       <div class="flex flex-wrap gap-4 mb-12 fade-up">
         <button
           id="filter-all"
-          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-accent text-accent rounded-full transition-all duration-300 hover:text-foreground outline-none"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-accent text-background bg-accent scale-[1.05] hover:scale-[1.05] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
         >
           All Projects
         </button>
         <button
           id="filter-data"
-          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted rounded-full transition-all duration-300 hover:border-accent hover:text-accent outline-none"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent hover:bg-accent/5 hover:scale-[1.02] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
         >
           Data Analysis
         </button>
@@ -143,13 +143,16 @@ const isDataAnalysis = (project: typeof projects[0]) => {
       const filterAllBtn = document.getElementById('filter-all');
       const filterDataBtn = document.getElementById('filter-data');
       const cards = document.querySelectorAll('.project-card');
+      
+      const activeClasses = ['border-accent', 'text-background', 'bg-accent', 'scale-[1.05]', 'hover:scale-[1.05]'];
+      const inactiveClasses = ['border-white/10', 'text-muted', 'bg-[#161616]/40', 'hover:border-accent/50', 'hover:text-accent', 'hover:bg-accent/5', 'hover:scale-[1.02]'];
 
       if (filterAllBtn && filterDataBtn) {
         filterAllBtn.addEventListener('click', () => {
-          filterAllBtn.classList.add('border-accent', 'text-accent');
-          filterAllBtn.classList.remove('border-white/10', 'text-muted');
-          filterDataBtn.classList.remove('border-accent', 'text-accent');
-          filterDataBtn.classList.add('border-white/10', 'text-muted');
+          filterAllBtn.classList.remove(...inactiveClasses);
+          filterAllBtn.classList.add(...activeClasses);
+          filterDataBtn.classList.remove(...activeClasses);
+          filterDataBtn.classList.add(...inactiveClasses);
 
           cards.forEach(card => {
             card.classList.remove('hidden');
@@ -161,10 +164,10 @@ const isDataAnalysis = (project: typeof projects[0]) => {
         });
 
         filterDataBtn.addEventListener('click', () => {
-          filterDataBtn.classList.add('border-accent', 'text-accent');
-          filterDataBtn.classList.remove('border-white/10', 'text-muted');
-          filterAllBtn.classList.remove('border-accent', 'text-accent');
-          filterAllBtn.classList.add('border-white/10', 'text-muted');
+          filterDataBtn.classList.remove(...inactiveClasses);
+          filterDataBtn.classList.add(...activeClasses);
+          filterAllBtn.classList.remove(...activeClasses);
+          filterAllBtn.classList.add(...inactiveClasses);
 
           cards.forEach(card => {
             if (card.getAttribute('data-category') === 'data-analysis') {

@@ -6,8 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/copy-certificates.js && astro dev",
+    "build": "node scripts/copy-certificates.js && astro build",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=vibe-portfolio --branch=main",
     "astro": "astro"
