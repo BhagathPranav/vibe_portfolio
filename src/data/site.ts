@@ -7,11 +7,11 @@ export const person = {
   fullName: 'Bhagath Pranav',
   /** One-line hook for recruiters */
   tagline:
-    'Data analytics & SQL-focused developer building portfolio apps with Astro and shipping notebooks that turn messy retail data into decisions.',
+    'Data Analyst & IT Developer specializing in SQL analytics, Python notebooks, AWS Cloud/AI, and modern static web applications.',
   metaDescription:
-    'Bhagath Pranav — portfolio: analytics projects (SQL, Python, Jupyter, Tableau), Astro sites, and JavaScript. Links to GitHub repos.',
-  githubUsername: 'Munna4171',
-  githubUrl: 'https://github.com/Munna4171',
+    'Bhagath Pranav — portfolio: analytics projects (SQL, Python, Jupyter, Tableau), AWS Cloud, Machine Learning, and Astro static web craft.',
+  githubUsername: 'BhagathPranav',
+  githubUrl: 'https://github.com/BhagathPranav',
   avatarUrl: 'https://avatars.githubusercontent.com/u/122788329?v=4',
   /** Used when avatar fails */
   avatarAlt: 'Bhagath Pranav portrait',
@@ -47,19 +47,29 @@ export type EducationEntry = {
 
 export const education: EducationEntry[] = [
   {
-    degree: 'Data Analyst & IT Developer',
-    institution: 'Independent / Freelance',
-    period: 'Present',
+    degree: 'B.Tech in Computer Science & Engineering (CGPA: 8.05)',
+    institution: 'Vardhaman College of Engineering, Hyderabad',
+    period: 'Aug 2023 - Mar 2027',
     highlights: [
-      'Building end-to-end analytics pipelines with Python, SQL, and interactive dashboards',
-      'Developing full-stack portfolio apps with Astro, TypeScript, and modern frameworks',
-      'Shipping reproducible Jupyter notebooks that turn messy retail data into actionable insights'
+      'Pursuing B.Tech in IT/CSE bridging Data Analytics, Machine Learning, and AWS Cloud infrastructure',
+      'Co-inventor on published Patent for an AI-integrated automated data and rescue device',
+      'Actively translating academic theory into interactive data dashboards, predictive models, and real-world engineering solutions'
+    ],
+  },
+  {
+    degree: 'Cloud Infrastructure Intern (Data Focus)',
+    institution: '1stop.ai (Technical Collaboration with IIT Guwahati)',
+    period: 'Jul 2025 - Sep 2025',
+    highlights: [
+      'Managed secure AWS cloud environments tailored for high-volume data storage and scalable application deployment',
+      'Configured EC2 instances and Virtual Private Clouds (VPCs) to ensure 99% uptime and secure routing for backend data pipelines',
+      'Technologies used: AWS, Cloud Computing, VPC, EC2 Linux Deployment, Infrastructure Optimization'
     ],
   },
 ];
 
-/** Optional contact lines — fill to show mailto / LinkedIn */
+/** Official Contact Information */
 export const contact = {
-  email: '' as string,
-  linkedinUrl: '' as string,
+  email: 'bhagathpranav057@gmail.com',
+  linkedinUrl: 'https://www.linkedin.com/in/bhagath-pranav-kumar057',
 };

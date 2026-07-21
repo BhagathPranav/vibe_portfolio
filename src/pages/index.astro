@@ -1,13 +1,13 @@
 ---
 import Layout from '../components/Layout.astro';
-import { person, bio, education } from '../data/site';
+import { person, bio, education, contact } from '../data/site';
 import { projects } from '../data/projects';
 import { certificates } from '../data/certificates';
 
 const featuredProjectTitles = [
+  'Cross-Platform Coding Aggregator',
+  'Friday Stark Voice Agent',
   'AI-chart',
-  'Pinventory',
-  'Vibe Portfolio',
   'Customer Shopping Behavior Analysis'
 ];
 
@@ -27,10 +27,17 @@ const featuredCertificates = featuredCertTitles
   .filter((c): c is typeof certificates[0] => !!c);
 
 const projectIcons: Record<string, string> = {
-  'AI-chart': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z" /></svg>`,
-  'Pinventory': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><rect x="5" y="3" width="4" height="18" rx="1" /><path d="M11 3h5a5 5 0 0 1 0 10h-5V3z" /></svg>`,
-  'Vibe Portfolio': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 18c4.41 0 8-3.59 8-8s-3.59-8-8-8-8 3.59-8 8 3.59 8 8 8zm0-14a6 6 0 0 0-6 6h2a4 4 0 0 1 4-4V6zm0 12a6 6 0 0 0 6-6h-2a4 4 0 0 1-4 4v2z" /></svg>`,
-  'Customer Shopping Behavior Analysis': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 9 9h5v-3h-5a6 6 0 0 1-6-6 6 6 0 0 1 6-6h5V3h-5z" /></svg>`
+  'Cross-Platform Coding Aggregator': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4zM12 4.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 12a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>`,
+  'Friday Stark Voice Agent': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>`,
+  'AI-chart': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12H7v-2h4v2zm4-4H7V8h8v2z"/></svg>`,
+  'Customer Shopping Behavior Analysis': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>`,
+  'Movie Data Analysis': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4zm-6 10l-4-4h8l-4 4z"/></svg>`,
+  'Pinventory': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`,
+  'Zepto E-Commerce Data Analysis': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>`,
+  'Zomato Data Analysis': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.55 3.89 3.57 4.23V22h2.86v-8.77C11.45 12.89 13 11.12 13 9V2h-2v7zm8-7h-2c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h2v7h2V4c0-1.1-.9-2-2-2z"/></svg>`,
+  'Travel Bucket': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z"/></svg>`,
+  'SQL Learning Repo': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2C6.48 2 2 4.02 2 6.5s4.48 4.5 10 4.5 10-2.02 10-4.5S17.52 2 12 2zm0 18c5.52 0 10-2.02 10-4.5v-3.5c0 2.48-4.48 4.5-10 4.5S2 12.48 2 10v3.5c0 2.48 4.48 4.5 10 4.5zm0-6c5.52 0 10-2.02 10-4.5V8c0 2.48-4.48 4.5-10 4.5S2 10.48 2 8v3.5c0 2.48 4.48 4.5 10 4.5z"/></svg>`,
+  'Vibe Portfolio': `<svg viewBox="0 0 24 24" class="w-16 h-16 text-foreground fill-current opacity-90 transition-transform duration-500 group-hover:scale-110"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`
 };
 
 const certIcons: Record<string, string> = {
@@ -91,10 +98,60 @@ const skills = [
       <h1 class="headline mb-12 max-w-[14ch] text-6xl leading-[0.9] md:text-8xl lg:text-[10rem] fade-up text-foreground">
         DATA ANALYST & <br/> IT DEVELOPER
       </h1>
-      <div class="fade-up stagger-1">
-        <p class="max-w-[600px] font-body text-xl text-muted md:text-2xl leading-relaxed">
+      <div class="fade-up stagger-1 mb-10">
+        <p class="max-w-[650px] font-body text-xl text-muted md:text-2xl leading-relaxed">
           {person.tagline}
         </p>
+      </div>
+
+      <!-- 10-Second Recruiter Summary Card -->
+      <div class="p-6 md:p-8 bg-[#0d0d0d] border border-borderline/20 hover:border-accent/40 rounded-2xl transition-all duration-300 fade-up stagger-2 shadow-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-borderline/20 pb-5">
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1 bg-accent text-background font-display text-[11px] sm:text-xs font-bold uppercase tracking-widest rounded-full shadow-md">
+              Executive Profile Snapshot
+            </span>
+            <span class="font-body text-xs text-muted hidden md:inline">
+              Professional Highlights — Bhagath Pranav
+            </span>
+          </div>
+          <div class="flex items-center gap-4">
+            <a href={`mailto:${contact.email}`} class="font-display text-xs font-bold uppercase tracking-widest text-accent hover:text-foreground transition-colors flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              Email Direct
+            </a>
+            <span class="text-borderline/40">•</span>
+            <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" class="font-display text-xs font-bold uppercase tracking-widest text-accent hover:text-foreground transition-colors flex items-center gap-1.5">
+              LinkedIn Profile ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="flex flex-col gap-1.5 border-l-2 border-accent pl-4 py-0.5">
+            <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent">Education</span>
+            <h4 class="headline text-lg text-foreground">B.Tech CSE (CGPA: 8.05)</h4>
+            <p class="font-body text-xs text-muted">Vardhaman College of Engineering (2023 - 2027)</p>
+          </div>
+
+          <div class="flex flex-col gap-1.5 border-l-2 border-accent pl-4 py-0.5">
+            <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent">Cloud Internship</span>
+            <h4 class="headline text-lg text-foreground">Cloud Infrastructure Intern</h4>
+            <p class="font-body text-xs text-muted">1stop.ai (IIT Guwahati Technical Collaboration)</p>
+          </div>
+
+          <div class="flex flex-col gap-1.5 border-l-2 border-accent pl-4 py-0.5">
+            <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent">Key Innovation</span>
+            <h4 class="headline text-lg text-foreground">Published Patent Co-Inventor</h4>
+            <p class="font-body text-xs text-muted">AI-Integrated Automated Data & Rescue Device</p>
+          </div>
+
+          <div class="flex flex-col gap-1.5 border-l-2 border-accent pl-4 py-0.5">
+            <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent">Core Credentials</span>
+            <h4 class="headline text-lg text-foreground">AWS & Data Science Certified</h4>
+            <p class="font-body text-xs text-muted">AWS Cloud Practitioner • Reliance 240-Hr Track</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -123,33 +180,33 @@ const skills = [
     </div>
   </section>
 
-  <!-- 3. Skills Tags -->
-  <section class="border-t border-borderline/20 section-padding">
-    <div class="container-content">
-      <div class="mb-16 flex items-center justify-between gap-6 fade-up">
-        <h2 class="headline text-5xl md:text-7xl text-accent uppercase shrink-0">Skills</h2>
+  <!-- 3. Skills Tags (Sized 10% smaller) -->
+  <section class="border-t border-borderline/20 py-20 md:py-28 px-6 md:px-12">
+    <div class="container-content max-w-[1100px]">
+      <div class="mb-12 flex items-center justify-between gap-6 fade-up">
+        <h2 class="headline text-4xl md:text-6xl text-accent uppercase shrink-0">Skills</h2>
         <div class="h-[1px] bg-borderline/20 flex-grow relative">
-          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-[6px] bg-accent"></div>
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-[5px] bg-accent"></div>
         </div>
       </div>
       
-      <div class="max-w-3xl mb-12 fade-up">
-        <p class="font-body text-lg md:text-xl text-muted leading-relaxed">
+      <div class="max-w-2xl mb-10 fade-up">
+        <p class="font-body text-base md:text-lg text-muted leading-relaxed">
           I specialize in SQL-driven analytics, Python notebooks, and interactive dashboards—combined with modern static sites to bring data insights and web applications to life. Here is my core technology stack and tools.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-5">
         {
           skills.map((skill, index) => (
             <div
-              class="group flex flex-col items-center justify-center p-8 bg-[#0d0d0d] border border-borderline/20 hover:border-accent/40 rounded-2xl transition-all duration-300 aspect-square text-center fade-up"
+              class="group flex flex-col items-center justify-center p-6 sm:p-7 bg-[#0d0d0d] border border-borderline/20 hover:border-accent/40 rounded-xl transition-all duration-300 aspect-square text-center fade-up"
               style={`transition-delay: ${index * 50}ms`}
             >
-              <div class="mb-4 text-[#888] group-hover:text-accent transition-colors duration-500 ease-out transform group-hover:scale-105">
+              <div class="mb-3 text-[#888] group-hover:text-accent transition-colors duration-500 ease-out transform group-hover:scale-105 [&>svg]:w-10 [&>svg]:h-10 md:[&>svg]:w-11 md:[&>svg]:h-11">
                 <Fragment set:html={skill.icon} />
               </div>
-              <span class="font-display text-xs font-bold tracking-widest uppercase text-muted group-hover:text-foreground transition-colors duration-300">
+              <span class="font-display text-[11px] font-bold tracking-widest uppercase text-muted group-hover:text-foreground transition-colors duration-300">
                 {skill.name}
               </span>
             </div>
@@ -194,6 +251,23 @@ const skills = [
                   <div class="absolute inset-0 w-full h-full bg-[#0d0d0d] transition-all duration-700 ease-out group-hover:scale-105" />
                 )}
 
+                <!-- Top Impact Metric Pill (Visible Default) -->
+                {project.impactMetric && (
+                  <div class="absolute top-4 left-4 z-10 bg-black/80 backdrop-blur-md border border-accent/40 text-accent font-display text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg">
+                    {project.impactMetric}
+                  </div>
+                )}
+
+                <!-- Bottom Default Title Bar -->
+                <div class="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black via-black/80 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-0">
+                  <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent block mb-0.5">
+                    {project.mainTech || project.tags[0]}
+                  </span>
+                  <h3 class="headline text-lg sm:text-xl text-foreground truncate">
+                    {project.title}
+                  </h3>
+                </div>
+
                 {/* Centered Icon (Default State) */}
                 <div class="project-icon absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out group-hover:scale-90 group-hover:opacity-0">
                   <Fragment set:html={projectIcons[project.title]} />
@@ -201,15 +275,22 @@ const skills = [
               </a>
 
               {/* Hover Overlay (Fades In) */}
-              <div class="absolute inset-0 bg-black/85 backdrop-blur-[6px] opacity-0 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-500 ease-out group-hover:opacity-100 flex flex-col justify-end p-8 z-10">
-                <div class="transform translate-y-4 transition-transform duration-500 ease-out group-hover:translate-y-0 flex flex-col gap-3">
-                  <span class="font-display text-xs font-bold uppercase tracking-widest text-accent">
-                    {project.mainTech || project.tags[0]}
-                  </span>
+              <div class="absolute inset-0 bg-black/90 backdrop-blur-[6px] opacity-0 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-500 ease-out group-hover:opacity-100 flex flex-col justify-end p-6 sm:p-8 z-20">
+                <div class="transform translate-y-4 transition-transform duration-500 ease-out group-hover:translate-y-0 flex flex-col gap-2.5">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="font-display text-xs font-bold uppercase tracking-widest text-accent">
+                      {project.mainTech || project.tags[0]}
+                    </span>
+                  </div>
                   <h3 class="headline text-2xl md:text-3xl text-foreground leading-tight">
                     {project.title}
                   </h3>
-                  <p class="font-body text-sm text-muted leading-relaxed max-w-[90%]">
+                  {project.impactMetric && (
+                    <p class="font-display text-xs font-bold text-accent tracking-wider uppercase border-l-2 border-accent pl-2.5 py-0.5 bg-accent/5">
+                      {project.impactMetric}
+                    </p>
+                  )}
+                  <p class="font-body text-xs sm:text-sm text-muted leading-relaxed">
                     {project.description}
                   </p>
                   <div class="mt-2 flex items-center gap-6">
@@ -217,7 +298,7 @@ const skills = [
                       href={project.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="font-display text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2 hover:text-foreground transition-colors duration-300 z-20"
+                      class="font-display text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2 hover:text-foreground transition-colors duration-300 z-30"
                     >
                       View Project <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
                     </a>
@@ -226,7 +307,7 @@ const skills = [
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="font-display text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2 hover:text-foreground transition-colors duration-300 z-20"
+                        class="font-display text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2 hover:text-foreground transition-colors duration-300 z-30"
                       >
                         Live Demo <span class="transition-transform duration-300 group-hover:translate-x-1">↗</span>
                       </a>
@@ -246,7 +327,445 @@ const skills = [
     </div>
   </section>
 
-  <!-- 5. Recent Certificates -->
+  <!-- 5. Interactive Resume Section (Sized 10% smaller) -->
+  <section class="border-t border-borderline/20 py-20 md:py-28 px-6 md:px-12 relative">
+    <div class="container-content max-w-[1100px]">
+      <!-- Section Header -->
+      <div class="mb-12 flex items-center justify-between gap-6 fade-up">
+        <h2 class="headline text-5xl md:text-7xl text-accent uppercase shrink-0">Resume</h2>
+        <div class="h-[1px] bg-borderline/20 flex-grow relative">
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-[6px] bg-accent"></div>
+        </div>
+      </div>
+
+      <!-- Resume Header Banner & Actions -->
+      <div class="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-6.5 md:p-8 bg-[#0d0d0d] border border-borderline/20 hover:border-accent/30 rounded-xl transition-all duration-300 fade-up">
+        <div class="max-w-2xl">
+          <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent mb-1.5 block">Curriculum Vitae</span>
+          <h3 class="headline text-2xl md:text-3xl text-foreground mb-2">Bhagath Pranav — Professional Profile</h3>
+          <p class="font-body text-sm text-muted leading-relaxed">
+            Data Analyst & IT Developer specializing in SQL analytics, Python notebooks, AWS Cloud/AI, and modern static web applications. Click **Preview Resume** to open the full document reader or inspect interactive tabs below.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <button
+            id="open-resume-modal"
+            class="px-5 py-3 font-display text-xs font-bold uppercase tracking-widest border border-accent text-background bg-accent hover:bg-foreground hover:border-foreground hover:text-background rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            Preview Resume
+          </button>
+          <a
+            href="/certificates/Resume/Resume_Data.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-3 font-display text-xs font-bold uppercase tracking-widest border border-white/20 text-foreground hover:border-accent hover:text-accent rounded-full transition-all duration-300 flex items-center gap-2"
+          >
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Download PDF
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Filter Tabs (On-Page Session) -->
+      <div class="flex flex-wrap gap-2.5 mb-6 fade-up">
+        <button
+          data-tab="summary"
+          class="resume-tab-btn px-5 py-2 font-display text-xs font-bold uppercase tracking-widest border border-accent text-background bg-accent rounded-full outline-none transition-all duration-300"
+        >
+          Executive Summary
+        </button>
+        <button
+          data-tab="skills"
+          class="resume-tab-btn px-5 py-2 font-display text-xs font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent rounded-full outline-none transition-all duration-300"
+        >
+          Technical Skills & Stack
+        </button>
+        <button
+          data-tab="experience"
+          class="resume-tab-btn px-5 py-2 font-display text-xs font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent rounded-full outline-none transition-all duration-300"
+        >
+          Experience Highlights
+        </button>
+        <button
+          data-tab="education"
+          class="resume-tab-btn px-5 py-2 font-display text-xs font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent rounded-full outline-none transition-all duration-300"
+        >
+          Education & Credentials
+        </button>
+      </div>
+
+      <!-- Tab Content Panels Container -->
+      <div class="p-6.5 md:p-8 bg-[#0d0d0d] border border-borderline/20 rounded-xl min-h-[260px] fade-up">
+        
+        <!-- Tab 1: Executive Summary -->
+        <div id="resume-panel-summary" class="resume-tab-panel space-y-5">
+          <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-borderline/20 pb-5 gap-3">
+            <div>
+              <h4 class="headline text-xl md:text-2xl text-foreground">Data Analytics & Software Developer</h4>
+              <p class="font-body text-xs text-accent">Independent / Freelance • Present</p>
+            </div>
+            <span class="px-3.5 py-1 bg-accent/10 border border-accent/30 text-accent font-display text-[11px] font-bold uppercase tracking-widest rounded-full self-start md:self-auto">
+              30+ Verified Credentials
+            </span>
+          </div>
+          <p class="font-body text-sm text-muted leading-relaxed">
+            Hands-on technical background in end-to-end data analytics, SQL schema design, and Python exploratory data analysis (Pandas, Jupyter, Tableau), paired with modern static web craft (Astro, TypeScript, Tailwind CSS). Proven track record publishing open-source projects, patent filings, and certified training in AWS Cloud & Artificial Intelligence.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
+            <div class="p-4 border border-borderline/20 bg-black/40 rounded-lg space-y-1.5">
+              <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent block">Analytics Focus</span>
+              <p class="font-body text-xs text-foreground leading-relaxed">SQL query optimization, retail basket behavior, customer funnel analysis, inventory databases.</p>
+            </div>
+            <div class="p-4 border border-borderline/20 bg-black/40 rounded-lg space-y-1.5">
+              <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent block">Cloud & AI</span>
+              <p class="font-body text-xs text-foreground leading-relaxed">AWS Bedrock, Prompt Engineering, Amazon Q Developer, IBM AI & Data Engineering Analyst.</p>
+            </div>
+            <div class="p-4 border border-borderline/20 bg-black/40 rounded-lg space-y-1.5">
+              <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent block">Web Engineering</span>
+              <p class="font-body text-xs text-foreground leading-relaxed">Static web architectures with Astro SSG, PostCSS, TypeScript, and MERN stack applications.</p>
+            </div>
+          </div>
+
+          <!-- Live GitHub Activity & Open-Source Metrics Card -->
+          <div class="mt-6 p-5 border border-borderline/20 bg-black/60 rounded-xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-borderline/20 pb-3">
+              <div class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 fill-current text-accent shrink-0" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                <div>
+                  <h5 class="headline text-base text-foreground">GitHub Live Activity & Problem Solving Metrics</h5>
+                  <p class="font-body text-[11px] text-muted">Real-time open-source repositories & activity stats for @BhagathPranav</p>
+                </div>
+              </div>
+              <a href={person.githubUrl} target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 font-display text-[11px] font-bold uppercase tracking-widest text-accent border border-accent/40 hover:bg-accent hover:text-background rounded-full transition-all duration-300 self-start sm:self-auto">
+                Explore Repos ↗
+              </a>
+            </div>
+
+            <!-- GitHub Stat Cards Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="p-3 bg-black/80 border border-white/10 rounded-lg text-center">
+                <span class="headline text-2xl text-accent block">11+</span>
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-muted">Public Repos</span>
+              </div>
+              <div class="p-3 bg-black/80 border border-white/10 rounded-lg text-center">
+                <span class="headline text-2xl text-accent block">100%</span>
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-muted">Open Source</span>
+              </div>
+              <div class="p-3 bg-black/80 border border-white/10 rounded-lg text-center">
+                <span class="headline text-2xl text-accent block">Python & SQL</span>
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-muted">Core Stacks</span>
+              </div>
+              <div class="p-3 bg-black/80 border border-white/10 rounded-lg text-center">
+                <span class="headline text-2xl text-accent block">2023 - 2027</span>
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-muted">Active Dev</span>
+              </div>
+            </div>
+
+            <!-- Live GitHub Stats Visual Badge -->
+            <div class="pt-2 flex justify-center overflow-x-auto">
+              <img
+                src="https://github-readme-stats.vercel.app/api?username=BhagathPranav&show_icons=true&theme=dark&bg_color=0d0d0d&title_color=ff1a1a&text_color=ffffff&icon_color=ff1a1a&border_color=222222"
+                alt="BhagathPranav GitHub Stats"
+                class="max-w-full h-auto rounded-lg border border-borderline/20 shadow-md"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Technical Skills & Stack (Interactive Skill Matrix & Sub-Filter) -->
+        <div id="resume-panel-skills" class="resume-tab-panel hidden space-y-6">
+          <!-- Skill Sub-Filter Buttons -->
+          <div class="flex flex-wrap gap-2.5 border-b border-borderline/20 pb-4">
+            <button
+              data-skill-filter="all"
+              class="skill-filter-btn px-4 py-1.5 font-display text-[11px] font-bold uppercase tracking-widest border border-accent text-background bg-accent rounded-full transition-all duration-300 outline-none"
+            >
+              All Skills (10)
+            </button>
+            <button
+              data-skill-filter="data"
+              class="skill-filter-btn px-4 py-1.5 font-display text-[11px] font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent rounded-full transition-all duration-300 outline-none"
+            >
+              Data & SQL
+            </button>
+            <button
+              data-skill-filter="cloud"
+              class="skill-filter-btn px-4 py-1.5 font-display text-[11px] font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent rounded-full transition-all duration-300 outline-none"
+            >
+              Cloud & AI
+            </button>
+            <button
+              data-skill-filter="dev"
+              class="skill-filter-btn px-4 py-1.5 font-display text-[11px] font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent rounded-full transition-all duration-300 outline-none"
+            >
+              Development
+            </button>
+            <button
+              data-skill-filter="tools"
+              class="skill-filter-btn px-4 py-1.5 font-display text-[11px] font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent rounded-full transition-all duration-300 outline-none"
+            >
+              Tools & Workflows
+            </button>
+          </div>
+
+          <!-- Interactive Skill Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Data & SQL -->
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="data">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Data Analytics</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Expert • 95%</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">SQL (PostgreSQL / MySQL)</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Schema design, window functions, CTEs, complex query tuning & database normalization.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[95%] transition-all duration-500"></div>
+              </div>
+              <a href="https://github.com/BhagathPranav/Zepto-E-Commerce-Data-Analysis-SQL-" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View Zepto SQL Repo →
+              </a>
+            </div>
+
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="data">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Data Analytics</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Advanced • 92%</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">Python (Pandas & NumPy)</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Data preprocessing, exploratory data analysis (EDA), statistical modeling & automated workflows.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[92%] transition-all duration-500"></div>
+              </div>
+              <a href="https://github.com/BhagathPranav/Customer_Shopping_Behavior_Analysis" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View Customer Analytics Repo →
+              </a>
+            </div>
+
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="data">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Data Analytics</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Advanced • 90%</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">Tableau & Dashboards</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Time-series revenue analysis, spatial demand mapping & executive story-finding dashboards.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[90%] transition-all duration-500"></div>
+              </div>
+              <a href="https://github.com/BhagathPranav/Zomato-Data-Analysis" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View Zomato Tableau Repo →
+              </a>
+            </div>
+
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="data">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Data Analytics</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Expert • 94%</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">Jupyter Notebooks</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Reproducible analytics, exploratory charting, Scikit-Learn ML workflows & data visualization.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[94%] transition-all duration-500"></div>
+              </div>
+              <a href="https://github.com/BhagathPranav/movie-data-analysis" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View Movie Notebook Repo →
+              </a>
+            </div>
+
+            <!-- Cloud & AI -->
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="cloud">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Cloud & AI</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Certified • AWS</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">AWS Cloud Infrastructure</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">AWS Certified Cloud Practitioner, Virtual Private Cloud (VPC), EC2 Linux server deployment & 99% uptime optimization.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[88%] transition-all duration-500"></div>
+              </div>
+              <a href="/certificates/Cloud_and_GenAI/23881A1275.pdf" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View AWS Certificate PDF →
+              </a>
+            </div>
+
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="cloud">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Cloud & AI</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Certified • AWS</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">Amazon Bedrock & GenAI</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Foundation models, Prompt Engineering, Amazon Nova Models & Generative AI project planning.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[85%] transition-all duration-500"></div>
+              </div>
+              <a href="/certificates/Cloud_and_GenAI/AWS/AWS Amazon Bedrock Getting.pdf" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View Bedrock Certificate PDF →
+              </a>
+            </div>
+
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="cloud">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Cloud & AI</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Certified • IBM</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">IBM AI & Data Engineering</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Artificial Intelligence Fundamentals, Scikit-Learn delinquency prediction & machine learning workflows.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[86%] transition-all duration-500"></div>
+              </div>
+              <a href="/certificates/AI/IBM_Artificial Intelligence Fundamentalspdf.pdf" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View IBM AI Certificate PDF →
+              </a>
+            </div>
+
+            <!-- Development -->
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="dev">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Development</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Expert • 95%</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">Astro SSG & Static Web</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Static site architecture, PostCSS styling, 100/100 performance budgets & Cloudflare Pages integration.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[95%] transition-all duration-500"></div>
+              </div>
+              <a href="https://github.com/BhagathPranav/vibe_portfolio" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View Portfolio Repo →
+              </a>
+            </div>
+
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="dev">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Development</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Certified • HackerRank</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">Frontend Developer (React) & Node</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Certified React & Node.js development, MERN stack, TypeScript, and Problem Solving (Basic).</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[90%] transition-all duration-500"></div>
+              </div>
+              <a href="/certificates/Development/HackerRank-frontend_developer_react certificate.pdf" target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View React Certificate PDF →
+              </a>
+            </div>
+
+            <!-- Tools -->
+            <div class="skill-card group p-5 bg-black/50 border border-borderline/20 hover:border-accent/50 rounded-lg transition-all duration-300 cursor-pointer" data-category="tools">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-display text-[10px] font-bold uppercase tracking-widest text-accent">Tools & Workflows</span>
+                <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent font-display text-[9px] font-bold uppercase tracking-widest rounded-full">Advanced • 92%</span>
+              </div>
+              <h5 class="headline text-xl text-foreground group-hover:text-accent transition-colors mb-1.5">Git, GitHub & Cloudflare Edge</h5>
+              <p class="font-body text-xs text-muted mb-3 leading-relaxed">Version control, open-source publishing, Cloudflare Pages static edge deployments & Postman APIs.</p>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-accent w-[92%] transition-all duration-500"></div>
+              </div>
+              <a href={person.githubUrl} target="_blank" rel="noopener noreferrer" class="font-display text-[11px] font-bold uppercase tracking-widest text-accent flex items-center gap-1 hover:text-foreground">
+                View GitHub Profile →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Experience Highlights -->
+        <div id="resume-panel-experience" class="resume-tab-panel hidden space-y-5">
+          <div class="border-b border-borderline/20 pb-5">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <h4 class="headline text-xl text-foreground">Cloud Infrastructure Intern (Data Focus)</h4>
+              <span class="font-display text-xs font-bold uppercase tracking-widest text-accent">1stop.ai (IIT Guwahati Collaboration) • Jul 2025 – Sep 2025</span>
+            </div>
+            <ul class="font-body text-xs text-muted space-y-2 list-none pl-0">
+              <li class="relative pl-5 before:content-['—'] before:absolute before:left-0 before:text-accent">Managed secure AWS cloud environments tailored for high-volume data storage and scalable application deployment.</li>
+              <li class="relative pl-5 before:content-['—'] before:absolute before:left-0 before:text-accent">Configured EC2 instances and Virtual Private Clouds (VPCs) to ensure 99% uptime and secure routing for backend data pipelines.</li>
+              <li class="relative pl-5 before:content-['—'] before:absolute before:left-0 before:text-accent">Technologies used: AWS, Cloud Computing, Virtual Private Cloud (VPC), EC2 Linux Server Deployment, Infrastructure Optimization.</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <h4 class="headline text-xl text-foreground">Data Analytics & IT Developer</h4>
+              <span class="font-display text-xs font-bold uppercase tracking-widest text-accent">Independent / Freelance • Present</span>
+            </div>
+            <ul class="font-body text-xs text-muted space-y-2 list-none pl-0">
+              <li class="relative pl-5 before:content-['—'] before:absolute before:left-0 before:text-accent">Building end-to-end analytics pipelines with Python, SQL, and interactive dashboards.</li>
+              <li class="relative pl-5 before:content-['—'] before:absolute before:left-0 before:text-accent">Developing full-stack portfolio applications with Astro, TypeScript, and modern frameworks.</li>
+              <li class="relative pl-5 before:content-['—'] before:absolute before:left-0 before:text-accent">Shipping reproducible Jupyter notebooks turning complex retail datasets into decisions.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tab 4: Education & Credentials -->
+        <div id="resume-panel-education" class="resume-tab-panel hidden space-y-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-5 border border-borderline/20 bg-black/40 rounded-lg space-y-2">
+              <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent block">Academic Degree</span>
+              <h4 class="headline text-xl text-foreground">B.Tech in CSE (CGPA: 8.05)</h4>
+              <p class="font-body text-xs text-muted">Vardhaman College of Engineering, Hyderabad • Aug 2023 - Mar 2027</p>
+              <p class="font-body text-xs text-muted leading-relaxed">
+                Pursuing B.Tech with a strong technical foundation bridging Data Analytics, Machine Learning, and AWS Cloud infrastructure. Co-inventor on a published Patent for an AI-integrated automated data device.
+              </p>
+            </div>
+
+            <div class="p-5 border border-borderline/20 bg-black/40 rounded-lg space-y-2">
+              <span class="font-display text-[11px] font-bold uppercase tracking-widest text-accent block">Verified Credentials</span>
+              <h4 class="headline text-xl text-foreground">30 Professional Certifications</h4>
+              <p class="font-body text-xs text-muted">AWS, DataCamp, IBM, HackerRank, Reliance, NASSCOM & Tata Group</p>
+              <a href="/certificates" class="font-display text-xs font-bold uppercase tracking-widest text-accent inline-flex items-center gap-1 hover:text-foreground">
+                Explore All 30 Certificates →
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullscreen / Interactive Resume Preview Modal Overlay (Triggers on 'Preview Resume' Click) -->
+  <div id="resume-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8">
+    <div class="relative w-full max-w-5xl h-[90vh] bg-[#0d0d0d] border border-borderline/30 rounded-2xl flex flex-col overflow-hidden shadow-2xl animate-fade-in">
+      <!-- Modal Header Bar -->
+      <div class="flex items-center justify-between px-6 py-4 bg-[#141414] border-b border-borderline/20 shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="font-display text-base font-bold uppercase tracking-widest text-accent">
+            Resume Document Preview
+          </span>
+          <span class="font-body text-xs text-muted hidden sm:inline">
+            — Bhagath Pranav Kumar
+          </span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="/certificates/Resume/Resume_Data.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 font-display text-xs font-bold uppercase tracking-widest border border-accent text-background bg-accent hover:bg-foreground hover:border-foreground hover:text-background rounded-full transition-all duration-300 flex items-center gap-1.5"
+          >
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Download PDF
+          </a>
+          <button
+            id="close-resume-modal"
+            class="p-2 text-muted hover:text-accent font-display font-bold text-xl cursor-pointer transition-colors"
+            aria-label="Close Resume Preview Modal"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+      <!-- Modal Frame Container serving uploaded PDF resume -->
+      <div class="flex-grow w-full bg-white relative">
+        <iframe
+          src="/certificates/Resume/Resume_Data.pdf"
+          class="w-full h-full border-0"
+          title="Bhagath Pranav Kumar Resume Document"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Recent Certificates -->
   <section class="border-t border-borderline/20 section-padding">
     <div class="container-content">
       <div class="mb-16 flex items-center justify-between gap-6 fade-up">
@@ -283,7 +802,7 @@ const skills = [
               <div class="absolute inset-0 bg-black/85 backdrop-blur-[6px] opacity-0 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-500 ease-out group-hover:opacity-100 flex flex-col justify-end p-8 z-10">
                 <div class="transform translate-y-4 transition-transform duration-500 ease-out group-hover:translate-y-0 flex flex-col gap-3">
                   <span class="font-display text-xs font-bold uppercase tracking-widest text-accent">
-                    {cert.category}
+                    {Array.isArray(cert.category) ? cert.category.join(' • ') : cert.category}
                   </span>
                   <h3 class="headline text-2xl md:text-3xl text-foreground leading-tight">
                     {cert.title}
@@ -321,7 +840,7 @@ const skills = [
     </div>
   </section>
 
-  <!-- 6. Experience Timeline -->
+  <!-- 7. Experience Timeline -->
   <section class="border-t border-borderline/20 pt-32 pb-8 md:pt-40 md:pb-8 px-6 md:px-12">
     <div class="container-content max-w-4xl fade-up">
       <h2 class="headline mb-20 text-5xl md:text-7xl text-foreground">Experience</h2>
@@ -347,7 +866,109 @@ const skills = [
           ))
         }
       </div>
+    </div>
   </section>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Interactive On-Page Resume Tab Switcher
+      const resumeTabs = document.querySelectorAll('.resume-tab-btn');
+      const resumePanels = document.querySelectorAll('.resume-tab-panel');
+
+      const activeClasses = ['border-accent', 'text-background', 'bg-accent'];
+      const inactiveClasses = ['border-white/10', 'text-muted', 'bg-[#161616]/40', 'hover:border-accent/50', 'hover:text-accent'];
+
+      resumeTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const targetTab = tab.getAttribute('data-tab');
+
+          resumeTabs.forEach(t => {
+            t.classList.remove(...activeClasses);
+            t.classList.add(...inactiveClasses);
+          });
+
+          tab.classList.remove(...inactiveClasses);
+          tab.classList.add(...activeClasses);
+
+          resumePanels.forEach(panel => {
+            if (panel.id === `resume-panel-${targetTab}`) {
+              panel.classList.remove('hidden');
+            } else {
+              panel.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // Skill Matrix Sub-Filter
+      const skillFilterBtns = document.querySelectorAll('.skill-filter-btn');
+      const skillCards = document.querySelectorAll('.skill-card');
+
+      skillFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-skill-filter');
+
+          skillFilterBtns.forEach(b => {
+            b.classList.remove('border-accent', 'text-background', 'bg-accent');
+            b.classList.add('border-white/10', 'text-muted', 'bg-[#161616]/40');
+          });
+
+          btn.classList.remove('border-white/10', 'text-muted', 'bg-[#161616]/40');
+          btn.classList.add('border-accent', 'text-background', 'bg-accent');
+
+          skillCards.forEach(card => {
+            const cat = card.getAttribute('data-category');
+            if (filter === 'all' || cat === filter) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // Resume Modal Open/Close Controls
+      const modal = document.getElementById('resume-modal');
+      const openBtn = document.getElementById('open-resume-modal');
+      const closeBtn = document.getElementById('close-resume-modal');
+
+      if (openBtn && modal) {
+        openBtn.addEventListener('click', () => {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+        });
+      }
+
+      if (closeBtn && modal) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = '';
+        });
+      }
+
+      // Close modal on background click
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+          }
+        });
+      }
+
+      // Close modal on ESC key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+  </script>
 
   <style>
     .project-card:hover .project-icon {

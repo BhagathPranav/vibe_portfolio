@@ -8,7 +8,9 @@ import { certificates } from '../data/certificates';
 const getCategoryKey = (cat: string | string[]) => {
   const cats = Array.isArray(cat) ? cat : [cat];
   return cats.map(c => {
-    if (c === 'Cloud & GenAI') return 'cloud';
+    if (c === 'Cloud') return 'cloud';
+    if (c === 'AI' || c === 'GenAI' || c === 'AI / GenAI' || c === 'AI & GenAI') return 'ai';
+    if (c === 'Cloud & GenAI') return 'cloud ai';
     if (c === 'Data Analytics') return 'data';
     if (c === 'Development') return 'dev';
     if (c === 'Internship & Patent') return 'patent';
@@ -19,7 +21,7 @@ const getCategoryKey = (cat: string | string[]) => {
 
 <Layout
   title={`Certificates — ${person.fullName}`}
-  description={`Professional certifications and training credentials earned by ${person.fullName} in AWS Cloud, Generative AI, Data Analytics, Python, and Full Stack Web Development.`}
+  description={`Professional certifications and training credentials earned by ${person.fullName} in AWS Cloud, Artificial Intelligence, Generative AI, Data Analytics, Python, and Full Stack Web Development.`}
 >
   <section class="section-padding">
     <div class="container-content">
@@ -32,7 +34,7 @@ const getCategoryKey = (cat: string | string[]) => {
       </div>
       
       <p class="max-w-2xl font-body text-xl text-muted leading-relaxed mb-16 fade-up">
-        A curated list of my completed certifications, professional simulations, and academic credentials across Cloud, Generative AI, Data Science, and Software Development.
+        A curated list of my completed certifications, professional simulations, and academic credentials across Cloud, Artificial Intelligence, Data Science, and Software Development.
       </p>
 
       <!-- Category Filter Buttons -->
@@ -59,7 +61,13 @@ const getCategoryKey = (cat: string | string[]) => {
           id="filter-cloud"
           class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent hover:bg-accent/5 hover:scale-[1.02] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
         >
-          Cloud & GenAI
+          Cloud
+        </button>
+        <button
+          id="filter-ai"
+          class="px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest border border-white/10 text-muted bg-[#161616]/40 hover:border-accent/50 hover:text-accent hover:bg-accent/5 hover:scale-[1.02] rounded-full outline-none transition-all duration-300 active:scale-[0.98]"
+        >
+          AI
         </button>
         <button
           id="filter-dev"
@@ -83,7 +91,7 @@ const getCategoryKey = (cat: string | string[]) => {
                 issuer={cert.issuer}
                 date={cert.date}
                 file={cert.file}
-                category={Array.isArray(cert.category) ? cert.category[0] : cert.category}
+                category={cert.category}
                 delay={index % 6}
               />
             </div>
@@ -99,6 +107,7 @@ const getCategoryKey = (cat: string | string[]) => {
         all: document.getElementById('filter-all'),
         patent: document.getElementById('filter-patent'),
         cloud: document.getElementById('filter-cloud'),
+        ai: document.getElementById('filter-ai'),
         data: document.getElementById('filter-data'),
         dev: document.getElementById('filter-dev')
       };
