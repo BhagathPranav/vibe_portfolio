@@ -200,7 +200,7 @@ export const certificates: Certificate[] = [
     title: 'Deloitte Technology Consulting Job Simulation',
     issuer: 'Deloitte & Forage',
     date: 'May 2026',
-    file: '/certificates/Deloitte cer.pdf',
+    file: '/certificates/Data_Analytics/Deloitte cer.pdf',
     category: 'Data Analytics',
   },
   {

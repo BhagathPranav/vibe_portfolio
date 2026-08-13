@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "jetro": {
+      "type": "stdio",
+      "command": "/Users/bhagath/.jetro/runtime/node-darwin-arm64",
+      "args": [
+        "/Users/bhagath/.jetro/mcp-server/index.js"
+      ],
+      "env": {
+        "JET_WORKSPACE": "/Users/bhagath/Desktop/AIO/vibe_portfolioo",
+        "JET_API_URL": "https://api.jetro.ai",
+        "PATH": "/Users/bhagath/.jetro/runtime:/usr/bin:/bin:/usr/sbin:/sbin"
+      }
+    }
+  }
+}

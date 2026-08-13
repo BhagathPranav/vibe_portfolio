@@ -92,12 +92,52 @@ const skills = [
 ---
 
 <Layout title={person.fullName} description={person.metaDescription}>
-  <!-- 1. Hero Section -->
-  <section class="px-6 pt-16 pb-20 md:px-12 md:pt-24 md:pb-28 min-h-[60vh] flex flex-col justify-start">
-    <div class="container-content">
-      <h1 class="headline mb-12 max-w-[14ch] text-6xl leading-[0.9] md:text-8xl lg:text-[10rem] fade-up text-foreground">
-        DATA ANALYST & <br/> IT DEVELOPER
+  <!-- 0. Name Intro Hero Section (Interactive Cursor Background Effect) -->
+  <section
+    id="name-hero"
+    class="relative w-full min-h-[85vh] lg:min-h-screen flex flex-col justify-between px-6 py-12 md:px-12 md:py-20 bg-background overflow-hidden border-b border-borderline/20 cursor-default select-none"
+  >
+    <!-- Interactive Background Radial Glow Canvas / Overlay -->
+    <div
+      id="cursor-glow"
+      class="pointer-events-none absolute inset-0 transition-opacity duration-300 opacity-0 z-0"
+      style="background: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 26, 26, 0.22), rgba(0, 0, 0, 0) 70%);"
+    ></div>
+
+    <!-- Background Subtle Decorative Grid -->
+    <div class="pointer-events-none absolute inset-0 z-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px]"></div>
+
+    <!-- Center Big Name Display -->
+    <div class="relative z-10 container-content my-auto py-12 flex flex-col items-start justify-center">
+      <h1 class="headline text-6xl sm:text-8xl md:text-[9rem] lg:text-[13rem] xl:text-[15rem] leading-[0.85] text-white uppercase tracking-tight fade-up font-bold">
+        BHAGATH<br />
+        <span class="text-accent hover:text-white transition-colors duration-500">PRANAV</span>
       </h1>
+      <p class="font-body text-lg sm:text-xl md:text-2xl text-muted max-w-2xl mt-8 font-normal leading-relaxed fade-up">
+        Data Analyst & IT Developer specializing in SQL analytics, Python workflows, AWS Cloud/AI, and editorial web craft.
+      </p>
+    </div>
+
+    <!-- Bottom Scroll Indicator -->
+    <div class="relative z-10 container-content w-full flex items-center justify-between pt-8 border-t border-white/10 fade-up">
+      <div class="flex items-center gap-2">
+        <span class="font-display text-xs font-bold uppercase tracking-widest text-muted">Hover for Glow • Scroll for Details</span>
+      </div>
+      <a href="#main-hero" class="group flex items-center gap-3 font-display text-xs font-bold uppercase tracking-widest text-accent hover:text-white transition-colors">
+        Scroll Down
+        <svg class="w-4 h-4 fill-current transition-transform duration-300 group-hover:translate-y-1" viewBox="0 0 24 24">
+          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- 1. Hero Section -->
+  <section id="main-hero" class="px-6 pt-16 pb-20 md:px-12 md:pt-24 md:pb-28 min-h-[60vh] flex flex-col justify-start">
+    <div class="container-content">
+      <h2 class="headline mb-12 max-w-[14ch] text-6xl leading-[0.9] md:text-8xl lg:text-[10rem] fade-up text-foreground">
+        DATA ANALYST & <br/> IT DEVELOPER
+      </h2>
       <div class="fade-up stagger-1 mb-10">
         <p class="max-w-[650px] font-body text-xl text-muted md:text-2xl leading-relaxed">
           {person.tagline}
@@ -926,6 +966,27 @@ const skills = [
           });
         });
       });
+
+      // Interactive Cursor Background Effect for Name Hero Section
+      const nameHero = document.getElementById('name-hero');
+      const cursorGlow = document.getElementById('cursor-glow');
+
+      if (nameHero && cursorGlow) {
+        nameHero.addEventListener('mousemove', (e) => {
+          const rect = nameHero.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          cursorGlow.style.setProperty('--mouse-x', `${x}px`);
+          cursorGlow.style.setProperty('--mouse-y', `${y}px`);
+          cursorGlow.classList.remove('opacity-0');
+          cursorGlow.classList.add('opacity-100');
+        });
+
+        nameHero.addEventListener('mouseleave', () => {
+          cursorGlow.classList.remove('opacity-100');
+          cursorGlow.classList.add('opacity-0');
+        });
+      }
 
       // Resume Modal Open/Close Controls
       const modal = document.getElementById('resume-modal');
