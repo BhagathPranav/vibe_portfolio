@@ -3,15 +3,23 @@ import '../styles/global.css';
 import Navigation from './Navigation.astro';
 import Footer from './Footer.astro';
 
+import { person } from '../data/site';
+
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  ogType?: string;
 }
 
 const {
-  title = 'Bhagath Pranav — Portfolio',
-  description = 'Bhagath Pranav — Data analytics, SQL, Python, and web projects.',
+  title = `${person.fullName} — Portfolio`,
+  description = person.metaDescription,
+  image = person.avatarUrl,
+  ogType = 'website',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://bhagathpranav.vercel.app');
 ---
 
 <!doctype html>
@@ -19,20 +27,48 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content={`${person.fullName} Portfolio`} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL.href} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    <title>{title}</title>
   </head>
-  <body class="min-h-screen flex flex-col bg-background text-foreground font-body antialiased">
+  <body class="min-h-screen flex flex-col bg-background text-foreground font-body antialiased relative">
     <Navigation />
     <main class="flex-1">
       <slot />
     </main>
     <Footer />
     
+    <!-- Global Toast Notification Container -->
+    <div
+      id="toast-notification"
+      class="fixed bottom-8 right-8 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-5 py-3.5 bg-[#121212] border border-accent/60 text-foreground rounded-xl shadow-2xl"
+      role="status"
+      aria-live="polite"
+    >
+      <div class="w-2.5 h-2.5 rounded-full bg-accent animate-pulse shrink-0"></div>
+      <span id="toast-message" class="font-display text-xs sm:text-sm font-bold uppercase tracking-wider text-white"></span>
+    </div>
+
     <script>
       const observerOptions = {
         root: null,
@@ -70,9 +106,60 @@ const {
         });
       }, observerOptions);
 
+      function showToast(message: string) {
+        const toast = document.getElementById('toast-notification');
+        const toastMsg = document.getElementById('toast-message');
+        if (!toast || !toastMsg) return;
+
+        toastMsg.textContent = message;
+        toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+        }, 3200);
+      }
+
+      // @ts-ignore
+      window.copyToClipboard = function(text: string, label?: string) {
+        const title = label || 'Email';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast(`${title} (${text}) copied to clipboard! 📋`);
+          }).catch(() => {
+            showToast(`${text}`);
+          });
+        } else {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          showToast(`${title} (${text}) copied to clipboard! 📋`);
+        }
+      };
+
       document.addEventListener('DOMContentLoaded', () => {
         const fadeElements = document.querySelectorAll('.fade-up');
         fadeElements.forEach((el) => observer.observe(el));
+
+        // Intercept mailto links for one-click copy & toast alert
+        document.addEventListener('click', (e) => {
+          const target = (e.target as HTMLElement).closest('a[href^="mailto:"], [data-copy-email]');
+          if (target) {
+            let email = target.getAttribute('data-copy-email');
+            if (!email && target.getAttribute('href')) {
+              email = target.getAttribute('href')?.replace('mailto:', '') || '';
+            }
+            if (email) {
+              e.preventDefault();
+              // @ts-ignore
+              window.copyToClipboard(email, 'Email');
+            }
+          }
+        });
       });
     </script>
   </body>
